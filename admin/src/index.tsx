@@ -4,42 +4,84 @@ import pluginPkg from '../../package.json';
 import pluginId from './pluginId';
 import Initializer from './components/Initializer';
 import PluginIcon from './components/PluginIcon';
+import getTrad from './utils/getTrad';
 
-const name = pluginPkg.strapi.name;
+const name = pluginPkg.strapi.displayName;
+const description = pluginPkg.strapi.description
 
 export default {
   register(app: any) {
-    app.addMenuLink({
-      to: `/plugins/${pluginId}`,
-      icon: PluginIcon,
+    app.customFields.register({
+      name: 'location-picker',
+      pluginId,
+      type: 'json',
       intlLabel: {
-        id: `${pluginId}.plugin.name`,
-        defaultMessage: name,
+        id: getTrad('input.label'),
+        defaultMessage: name
       },
-      Component: async () => {
-        const component = await import(/* webpackChunkName: "[request]" */ './pages/App');
+      intlDescription: {
+        id: getTrad('input.description'),
+        defaultMessage: 'Pick your location'
+      },
+      icon: PluginIcon,
+      components: {
+        Input: async () => import(
+           /* webpackChunkName: "input-component" */ './components/Input'
+        )
+      },
+      options: {
+        advanced: [
+          {
+            name: 'optionsDefaultLat',
+            type: 'string',
+            intlLabel: {
+              id: getTrad('attribute.item.defaultLat'),
+              defaultMessage: 'Default latitude'
+            }
+          },
+          {
+            name: 'optionsDefaultLng',
+            type: 'string',
+            intlLabel: {
+              id: getTrad('attribute.item.defaultLng'),
+              defaultMessage: 'Default longitude'
+            }
+          },
+          {
+            sectionTitle: {
+              id: 'global.settings',
+              defaultMessage: 'Settings'
+            },
+            items: [
+              {
+                name: 'required',
+                type: 'checkbox',
+                intlLabel: {
+                  id: 'form.attribute.item.requiredField',
+                  defaultMessage: 'Required field',
+                },
+                intlDescription: {
+                  id: 'form.attribute.item.requiredField.description',
+                  defaultMessage: "You won't be able to create an entry if this field is empty",
+                },
+              },
+            ]
+          }
+        ]
+      }
+    })
 
-        return component;
-      },
-      permissions: [
-        // Uncomment to set the permissions of the plugin here
-        // {
-        //   action: '', // the action name should be plugin::plugin-name.actionType
-        //   subject: null,
-        // },
-      ],
-    });
     const plugin = {
       id: pluginId,
       initializer: Initializer,
       isReady: false,
       name,
+      description
     };
-
     app.registerPlugin(plugin);
   },
 
-  bootstrap(app: any) {},
+  bootstrap(app: any) { },
 
   async registerTrads(app: any) {
     const { locales } = app;
