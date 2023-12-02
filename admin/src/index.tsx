@@ -15,6 +15,10 @@ export default {
       name: 'location-picker',
       pluginId,
       type: 'json',
+      inputSize: {
+        default: 12,
+        isResizable: false
+      },
       intlLabel: {
         id: getTrad('input.label'),
         defaultMessage: name
