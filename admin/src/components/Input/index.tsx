@@ -40,10 +40,14 @@ const Input = React.forwardRef<HTMLDivElement, Props>((
     ref
 ) => {
     const generatedId = useId()
+    
     const parsedValue = useMemo(() => {
         if(!value) return
-        return JSON.parse(value) as typeof fallbacCenter
+        const parsed = JSON.parse(value)
+        if(typeof parsed !== 'object') return
+        return parsed
     }, [value])
+
     const lat = useFloatValue(parsedValue?.lat, attribute.optionsDefaultLat, fallbacCenter.lat)
     const lng = useFloatValue(parsedValue?.lng, attribute.optionsDefaultLng, fallbacCenter.lng)
     const displayValue = useMemo(() => ({ lat, lng }), [lat, lng, parsedValue])
