@@ -53,8 +53,8 @@
     "npm": ">=6.0.0"
   },
   "scripts": {
-    "develop": "tsc -p tsconfig.server.json -w",
-    "build": "tsc -p tsconfig.server.json",
+    "develop": "rm -rf dist && tsc -p tsconfig.server.json -w",
+    "build": "rm -rf dist && tsc -p tsconfig.server.json",
     "release": "semantic-release"
   },
   "license": "MIT",
@@ -63,13 +63,12 @@
   },
   "files": [
     "admin",
-    "dist",
-    "deps.d.ts",
+    "dist/server",
+    "custom.d.ts",
     "package.json",
     "README.md",
     "strapi-admin.js",
     "strapi-server.js",
-    "tsconfig.json",
-    "types.d.ts"
+    "tsconfig.json"
   ]
 }

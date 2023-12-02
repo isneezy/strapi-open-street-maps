@@ -1,10 +1,7 @@
-import pluginId from '../admin/src/pluginId'
-
-
 export default ({ strapi }) => {
   strapi.customFields.register({
     name: 'location-picker',
-    plugin: pluginId,
+    plugin: 'open-street-maps',
     type: 'json'
   })
 };
