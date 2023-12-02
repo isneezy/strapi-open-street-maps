@@ -26,6 +26,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^5.3.4",
+    "semantic-release": "^22.0.8",
     "styled-components": "^5.3.6",
     "typescript": "5.0.4"
   },
@@ -36,11 +37,11 @@
     "styled-components": "^5.3.6"
   },
   "author": {
-    "name": "A Strapi developer"
+    "name": "Ivan Vilanculo"
   },
   "maintainers": [
     {
-      "name": "A Strapi developer"
+      "name": "Ivan Vilanculo"
     }
   ],
   "engines": {
@@ -49,7 +50,22 @@
   },
   "scripts": {
     "develop": "tsc -p tsconfig.server.json -w",
-    "build": "tsc -p tsconfig.server.json"
+    "build": "tsc -p tsconfig.server.json",
+    "release": "semantic-release"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "admin",
+    "dist/server",
+    "deps.d.ts",
+    "package.json",
+    "README.md",
+    "strapi-admin.js",
+    "strapi-server.js",
+    "tsconfig.json",
+    "types.d.ts"
+  ]
 }
