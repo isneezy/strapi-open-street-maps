@@ -1,6 +1,7 @@
 import React, { PropsWithChildren, useEffect, useState } from "react"
-import L, { LatLng, LatLngExpression, Map } from 'leaflet'
+import L, { DomUtil, LatLng, LatLngExpression, Map } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+import fixMapZindex from "../../utils/fixMapZindex"
 
 type ContextType = {
     map: Map
@@ -26,6 +27,8 @@ export default function MapView({ center, children, onClick }: PropsWithChildren
             maxZoom: 18,
             attribution: '&copy; <a target="_blank" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(_map)
+
+        fixMapZindex(_map)
 
         _map.setView(center, 14.5)
 
