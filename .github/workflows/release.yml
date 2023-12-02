@@ -34,7 +34,7 @@ jobs:
       # - name: Coveralls
       #   uses: coverallsapp/github-action@master
       #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     github-token: ${{ secrets.GH_TOKEN }}
 
       - name: build
         run: yarn build
@@ -48,5 +48,5 @@ jobs:
         if: ${{ (contains(github.ref, 'main') || contains(github.ref, 'next')) }}
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npx semantic-release
