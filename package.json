@@ -1,6 +1,6 @@
 {
   "name": "@isneezy/strapi-open-street-maps",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "An Open Street Maps custom field for Strapi, allowing you to pick a location.",
   "repository": {
     "url": "https://github.com/isneezy/strapi-open-street-maps.git"
