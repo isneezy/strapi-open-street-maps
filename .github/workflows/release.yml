@@ -4,14 +4,17 @@ on:
   push:
     branches: [main]
   pull_request:
-      branches: [main]
+    branches: [main]
+
+permissions:
+  contents: write
 
 jobs:
   CI:
     # if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v1
         with:
           node-version: 18.x
@@ -23,19 +26,6 @@ jobs:
       - name: install
         run: yarn --check-files --frozen-lockfile --non-interactive
 
-      # - name: Lint
-      #   run: yarn lint
-
-      # - name: audit
-      #   run: yarn audit --groups dependencies, optionalDependencies
-
-      # - name: test
-      #   run: yarn test --collectCoverage
-      # - name: Coveralls
-      #   uses: coverallsapp/github-action@master
-      #   with:
-      #     github-token: ${{ secrets.GH_TOKEN }}
-
       - name: build
         run: yarn build
       - name: cache build
@@ -44,11 +34,8 @@ jobs:
           path: dist
           key: ${{ runner.os }}-dist
 
-      - name: Release
-        if: ${{ (contains(github.ref, 'main') || contains(github.ref, 'next')) }}
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v4
         env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          echo $GH_TOKEN
-          npx semantic-release
